@@ -43,3 +43,33 @@ This file contains all of the configurations for the Docker container.
 ### requirements.txt
 
 This file is generated when the command pip freeze is run, it extracts all of the dependencies for the project and stores them on this file which is then used when creating the Docker image to install all of the dependencies on the container and in the app.
+
+# Ionic app
+
+## /src
+
+### login.ts
+
+This file contains the funcitonality for the login page.
+
+### signup.ts
+
+This file contains the funcitonality for the signup page.
+
+### home.ts
+
+This file contains the funcitonality for the home page.
+
+### contact.ts
+
+This file contains the funcitonality for the contact page.
+
+### abput.ts
+
+This file contains the funcitonality for the about page.
+
+## / providers
+
+### rest.ts
+
+This file provides all of the functionality for any REST services required by the app.
