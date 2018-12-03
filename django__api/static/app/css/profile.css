@@ -1,0 +1,156 @@
+#main_div{
+    background-color: #ebecee;
+    padding: 10vh 5vh 5vh 5vh;
+}
+
+#main_div_container{
+    background-color: white;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+#user_details{
+    /*border: 1px solid black;*/
+
+    background-color: #fff;
+    padding: 30px;
+    margin-bottom: 4rem;
+    padding-top: 2vh;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+    font-family: Roboto;
+    -webkit-box-sizing: border-box;
+    -webkit-text-size-adjust: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #222;
+    font-size: 1.2em;
+    line-height: 1.6;
+    font-weight: 400;
+    border-radius: 3px;
+}
+
+#leaflet-container-pos{
+    width: 100%;
+    height: 70vh;
+    padding-left: 0px;
+    padding-right: 3%;
+    padding-bottom: 5vh;
+}
+
+.leaflet-container {
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    border-radius: 2px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+    /*border:1px solid black;*/
+}
+
+#list-container{
+    padding-top: 5vh;
+    /*border:1px solid black;*/
+}
+
+#row-container{
+    padding-top: 2%;
+    /*border:1px solid black;*/
+    height:100%;
+
+}
+
+#left-col{
+    /*border:1px solid black;*/
+    height:100%;
+    padding-left: 0px;
+}
+
+#left-panel{
+    height:60vh;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+#right-col{
+    /*border:1px solid black;*/
+    height:100%;
+    padding-right: 2.5%;
+}
+
+#right-panel{
+    height:60vh;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Styling the response div*/
+.event_name date_time purchase{
+    font-family: Roboto;
+    font-size: 1.2em;
+}
+
+.details_div {
+    padding-top: 2%;
+    height: 100%;
+}
+
+.event_image{
+    margin: auto auto;
+    border-radius: 10px;
+}
+
+#response_list_placeholder{
+    text-align: center;
+    font-family: Roboto;
+    font-size: 2em;
+    font-weight: 100;
+    color: #666666;
+    padding-top: 25%;
+}
+
+.event_list{
+    height: 60%;
+    /*border: 1px solid black;*/
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+
+.scrollbar {
+    background-color: #F5F5F5;
+    float: left;
+    height: 300px;
+    margin-bottom: 25px;
+    margin-left: 22px;
+    margin-top: 40px;
+    width: 65px;
+    overflow-y: scroll;
+}
+
+.force-overflow {
+    min-height: 450px;
+}
+
+
+
+/* Input and button style */
+#search_form input[type=text] {
+    font-size: 16px;
+    width: 32%;
+    -webkit-appearance: none;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    padding: 0 8px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border-radius: 10px;
+}
+
+#search_button {
+    border: 0px;
+    width: 29%;
+    color: #fff;
+    text-shadow: 0 1px rgba(0,0,0,0.5);
+    background-color: darkcyan;
+    font-weight: 400;
+    font-family: roboto;
+    font-size: 20px;
+    border-radius: 10px;
+}

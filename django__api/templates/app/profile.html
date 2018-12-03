@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load leaflet_tags %}
+{% load socialaccount %}
+
+
+{% block head %}
+    {% leaflet_js plugins="routing" %}
+    {% leaflet_css plugins="routing" %}
+
+    {# Profile style sheet#}
+    <link rel="stylesheet" href="{% static "app/css/profile.css" %}" type="text/css"/>
+
+    <script language="JavaScript" type="text/javascript">
+
+        let my_map;
+        let user_latlong;
+        let csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+        function main_map_init (map, options){
+            my_map = map;
+            navigator.geolocation.getCurrentPosition(function (position) {
+                let marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map)
+                .bindPopup('Hi {{ user.first_name }}! This is your location');
+                centerLeafletMapOnMarker(map, marker);
+                user_latlong = [position.coords.latitude, position.coords.longitude];
+            });
+
+        }
+
+        function getVenueDetails(venueId){
+            $.get("/get_venue_details/?venue_id=" + venueId)
+                    .done(function(data) {
+                        addVenueToMap(data);
+                        console.log(data);
+                    });
+            return false;
+        }
+
+        function addVenueToMap(venue) {
+            let name = venue.name;
+            let address = venue.address;
+            let long = venue.longlat.longitude;
+            let lat = venue.longlat.latitude;
+            let url = venue.url;
+
+            let marker = L.marker([lat, long]).addTo(my_map)
+                .bindPopup('Venue: ' + '<a href="' + url + '">' + name + '</a><br>' +
+                        'Address: ' + address
+                );
+                centerLeafletMapOnMarker(my_map, marker);
+        }
+
+
+ {# Working routing but randomly breaks other functionality, DEMO version, #}
+            {# known problems with OSRM!!! No free alternative #}
+            {#L.Routing.control({#}
+            {#    waypoints: [#}
+            {#    L.latLng(user_latlong[0], user_latlong[1]),#}
+            {#    L.latLng(lat, long)#}
+            {#    ]#}
+            {# ) . addTo(my_map);#}
+        function centerLeafletMapOnMarker(map, marker) {
+            let latLngs = [ marker.getLatLng() ];
+            let markerBounds = L.latLngBounds(latLngs);
+            map.fitBounds(markerBounds);
+        }
+
+        {# Make all of the div elements generated below dragable from one panel to another #}
+        $(function () {
+            $("#tm_response_list, #interested_list").sortable({
+                connectWith: ".connectedLists",
+                cursor: "move"
+            }).disableSelection();
+        });
+
+        {# Make call to rest api which makes call to ticketmaster api parse #}
+        {# response and create div elements from the response #}
+        $(function() {
+            $("#search_form").submit(function() {
+                $("#tm_response_list").empty();
+                let search = $("#search_form :input[name='search']").val();
+                let city = $("#search_form :input[name='city']").val();
+                $.get("/get_events/?search=" + search +"&city=" + city)
+                    .done(function(data) {
+                        for(let i = 0; i < data.length; i++){
+                            let youtube_url = '#event' + i;
+                            if(data[i].youtube_url != undefined)
+                                youtube_url = data[i].youtube_url;
+                            $("#tm_response_list").append(
+                                '<div class="event_list" id="event' + i + '">' +
+                                    '<div id="eventImage' + i + '" class="image_div col-sm-4">' +
+                                        '<img class="event_image" src="' + data[i].image + '" style="width: 100%; height: 20vh"/>' +
+                                    '</div>' +
+                                    '<div id="eventDiv' + i + '" class="details_div col-sm-8">' +
+                                        '<p class="event_name">' + data[i].name + '</p>' +
+                                        '<p class="date_time">' + data[i].date + '</p>' +
+                                        '<p class="date_time">' + data[i].time + '</p>' +
+                                        '<a class="purchase_find" href="' + data[i].url + '">Buy tickets!</a>' +
+                                        '<br>' +
+                                        '<a class="purchase_find" href="' + youtube_url + '">Listen now!</a>' +
+                                        '<br>'+
+                                    '</div>' +
+                                '</div> <br>'
+                            )
+                        }
+                        for (let i = 0; i < data.length; i++) {
+                            let container = document.getElementById("eventDiv"+i);
+                            let button = document.createElement('button');
+                            button.innerText = "Find the venue!";
+                            button.className = "directionsBtn";
+                            button.onclick = (function () {
+                                return function () {
+                                    getVenueDetails(data[i].venue_id);
+                                };
+                            })("URL #" + i);
+                            container.appendChild(button);
+                        }
+                    });
+                return false;
+            })});
+
+        $(document).ready(function(){
+            $(".event_list").dblclick(function(){
+                $(this).fadeOut();
+                $(this).appendChild(document.getElementById('interested_list'));
+            });
+        });
+
+
+    </script>
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div id="main_div" class="container-fluid">
+
+        <div id="user_details" class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <img src="{{ user.profile.profile_picture.url }}" style="width: 30vh; height: 30vh; position:absolute;left:6vh; top:4vh;"/>
+                    <br>
+                    <p style="position:absolute;left:7vh; top:34vh;"><a href="{% url 'app:update_profile_pic' %}">Change profile pic?</a></p>
+                </div>
+                <div id="details_cont" class="col-md-4" style="margin-top: 2vh">
+                    <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+                    <p>Age: {{ user.profile.age }}</p>
+                    <p>Age: {{ user.profile.gender }}</p>
+                    <p>Email: {{ user.email }}</p>
+                    <p>Bio: {{ user.profile.bio }}</p>
+                    <p><a href="{% url "app:update_profile" %}">Update profile details</a></p>
+                    <p>Connect a <a href="{% provider_login_url "facebook" process="connect" %}">facebook</a> account</p>
+                </div>
+            </div>
+        </div>
+        <div id="main_div_container" class="container">
+            <div id="list-container" class="container">
+                <div id="row-container" class="row justify-content-center">
+                    <div id="left-col" class="col-md-6">
+                        <div id="left-panel" class="panel panel-default" >
+                            <div class="panel-heading" >
+                                <form id="search_form">
+                                 {% csrf_token %}
+                                     <input type="text" placeholder="Search" name="search">
+                                     <input type="text"  placeholder="City" name="city">
+                                 <button id="search_button" type="submit" >Search</button>
+                             </form>
+                            </div>
+                            <div id="tm_response_list" class="panel-body connectedLists" style="color: black; overflow-y:scroll; height:50vh;">
+                                    {# list of divs from ticketmaster response is generated here #}
+                                     <p id="response_list_placeholder">Search for upcoming gigs in your city!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="right-col" class="col-md-6">
+                        <div id="right-panel" class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Interested</h3>
+                                <form action="{% url 'account_login' %}" method="post" class="login" style="font-family: 'Roboto';">
+                                     {% csrf_token %}
+                                      <input type="text" name="innerHTML" style="display: none">
+                                      <button onclick="extractDivElements()" id="search_button" type="submit" >Save</button>
+                                </form>
+                                {% csrf_token %}
+
+                            </div>
+                            <ul id="interested_list" class="panel-body connectedLists" style="color: black; overflow-y:scroll; height:50vh;">
+                                    {# list of interested events are stored here #}
+                                    {# <p id="response_list_placeholder">Drag gigs here to save them!</p>#}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="list-container" class="container">
+                <div id="row-container" class="row justify-content-center">
+                        <div id="leaflet-container-pos" class="container">
+                            <div id="mapId" class="leaflet-container" class="container">
+                                {% leaflet_map "main" callback="main_map_init" %}
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

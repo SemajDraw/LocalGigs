@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GigFinder</title>
+
+    {% load account %}
+    {% load account socialaccount %}
+
+    {% load leaflet_tags %}
+    {% load static %}
+
+    {% leaflet_js plugins="forms" %}
+    {% leaflet_css plugins="forms" %}
+
+    {# Load the bootstrap library #}
+    {% load bootstrap3 %}
+    {% load crispy_forms_tags %}
+
+    {#     Bootstrap links#}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    {#    Font awesome#}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    {#    Bungee Shade Font#}
+    <link href='https://fonts.googleapis.com/css?family=Bungee Shade' rel='stylesheet'>
+
+    {#    Base style sheet#}
+    <link rel="stylesheet" href="{% static "base.css" %}" type="text/css"/>
+
+    <script src="{% static "app/js/my_script.js" %}"></script>
+    {% block head %}
+    {% endblock %}
+
+</head>
+<body>
+ <div id="content">
+    <nav class="navbar navbar-inverse" style="margin-bottom: 0px; font-family: 'Bungee Shade'; font-size: 1.5em; border-radius: 0px">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" style="padding-left: 5vh; font-size: 1.5em; color: white" href="/">LocalGigs</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'app:profile' %}"><span class="glyphicon glyphicon-user">
+                </span>  {{ user }}</a></li>
+                <li><a href="account/logout" data-toggle="modal" data-target="#logout-modal" style="padding-right:5vh; padding-left:2vh;">
+                    <span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+            {% else %}
+                <li><a href="account/signup"><span class="glyphicon glyphicon-user"></span>  Sign Up</a></li>
+                <li><a id="login" href="" style="padding-right: 5vh; padding-left:2vh;" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in">
+                </span>  Login</a></li>
+            {% endif %}
+        </ul>
+      </div>
+    </nav>
+ </div>
+
+ {# Modal Login#}
+ {% get_providers as socialaccount_providers %}
+ <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+     <div class="modal-dialog">
+         <div class="loginmodal-container">
+             <h1 style="font-family: 'Bungee Shade'; font-size: 40px;">Login</h1><br>
+             <p>Log in with {% include "socialaccount/snippets/provider_list.html" with process="login" %}</p>
+             <form action="{% url 'account_login' %}" method="post" class="login" style="font-family: 'Roboto';">
+                 {% csrf_token %}
+                     <input type="text" placeholder="Username/Email" name="login">
+                     <input type="password"  placeholder="Password" name="password">
+                 {% if redirect_field_value %}
+                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                 {% endif %}
+                 <button type="submit" id="loginmodal-submit" class="primaryAction">Login</button>
+             </form>
+             <div class="login-help">
+                 <a href="{% url 'account_signup' %}"account_signup>Register</a> | <a href="{% url 'account_reset_password' %}">Forgot Password</a>
+             </div>
+         </div>
+     </div>
+ </div>
+
+ {# Modal logout#}
+ {% if user.is_authenticated %}
+     <div class="modal fade" id="logout-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+         <div class="modal-dialog">
+             <div class="loginmodal-container">
+                 <h1 style="font-family: 'Bungee Shade'; font-size: 40px;">Logout</h1><br>
+                 <form method="post" action="{% url 'account_logout' %}">
+                     {% csrf_token %}
+                     {% if redirect_field_value %}
+                         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                     {% endif %}
+                    <button id="loginmodal-submit" class="primaryAction" type="submit">Logout</button>
+                 </form>
+             </div>
+         </div>
+    </div>
+ {% endif %}
+
+
+ {% block content %}
+
+ {% endblock %}
+
+</body>
+</html>

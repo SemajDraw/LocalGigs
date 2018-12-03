@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+    {#    Landing style sheet#}
+    <link rel="stylesheet" href="{% static "app/css/landing.css" %}" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+    <div id="main_section" class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark">
+        <div style="padding-top: 1vh">
+            <div class="loginmodal-container">
+                <h1 style="font-family: 'Bungee Shade'; font-size: 40px;">Change your profile picture</h1>
+                <form class="signup" enctype="multipart/form-data" id="signup_form" method="post">
+                    {% csrf_token %}
+                    {{ profile_pic_form.as_p }}
+                  <button id="loginmodal-submit" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

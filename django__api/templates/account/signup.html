@@ -1,0 +1,30 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block head %}
+    {#    Landing style sheet#}
+    <link rel="stylesheet" href="{% static "app/css/landing.css" %}" type="text/css"/>
+{% endblock %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+    <div id="main_section" class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark">
+        <div style="padding-top: 1vh">
+            <div class="loginmodal-container">
+                <h1 style="font-family: 'Bungee Shade'; font-size: 40px;">{% trans "Sign Up" %}</h1>
+                <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {% if redirect_field_value %}
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                  {% endif %}
+                  <button id="loginmodal-submit" type="submit">{% trans "Sign Up" %} &raquo;</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
