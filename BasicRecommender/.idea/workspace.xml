@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/Preprocessing/CleanDataset.py" line="15" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0dead9a9-d5cd-44b1-996d-4744d35126be" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Preprocessing/DatasetFromDict.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../recommender/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../recommender/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../recommender/api/pre_processing.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../recommender/api/recommendation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../recommender/api/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../recommender/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dataset/CleanedSTRINGDataset.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Preprocessing/CleanDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/Preprocessing/CleanDataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Preprocessing/CreateDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/Preprocessing/CreateDataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Preprocessing/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recommender/NowPlaying.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recommender/NowPlaying.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recommender/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recommender/SVD++.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recommender/SVD++.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../django__api/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../django__api/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../django__api/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../django__api/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../django__api/api/command_line.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../django__api/api/ticketmaster.py" beforeDir="false" afterPath="$PROJECT_DIR$/../django__api/api/ticketmaster.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../django__api/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../django__api/api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../django__api/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../django__api/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../django__api/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../django__api/app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../django__api/django__api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../django__api/django__api/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../django__api/django__api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../django__api/django__api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../django__api/static/app/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/../django__api/static/app/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../django__api/templates/app/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/../django__api/templates/app/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/resources/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/resources/android/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/resources/android/icon/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/resources/android/splash/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/resources/ios/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/resources/ios/icon/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/resources/ios/splash/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/app/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/assets/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/assets/icon/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/assets/imgs/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/about/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/about/about.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/about/about.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/about/about.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/contact/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/contact/contact.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/contact/contact.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/contact/contact.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/home/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/home/home.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/home/home.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/home/home.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/interested/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/interested/interested.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/interested/interested.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/interested/interested.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/interested/interested.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/login/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/login/login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../gig_app/src/pages/login/login.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/map/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/map/map.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../gig_app/src/pages/map/map.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/profile/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/profile/profile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../gig_app/src/pages/profile/profile.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/search/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/search/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/../gig_app/src/pages/search/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/search/search.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../gig_app/src/pages/search/search.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/signup/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/tabs/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/tabs/tabs.html" beforeDir="false" afterPath="$PROJECT_DIR$/../gig_app/src/pages/tabs/tabs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/pages/tabs/tabs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../gig_app/src/pages/tabs/tabs.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/providers/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/providers/rest/Open Notebook.onetoc2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/providers/rest/rest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../gig_app/src/providers/rest/rest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gig_app/src/theme/Open Notebook.onetoc2" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/BasicRecommender$Recommender.coverage" NAME="Recommender Coverage Results" MODIFIED="1549908865548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Recommender" />
+    <SUITE FILE_PATH="coverage/BasicRecommender$DatasetFromDict.coverage" NAME="DatasetFromDict Coverage Results" MODIFIED="1553543079694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Preprocessing" />
+    <SUITE FILE_PATH="coverage/BasicRecommender$CleanDataset.coverage" NAME="CleanDataset Coverage Results" MODIFIED="1553280401659" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Cleaning" />
+    <SUITE FILE_PATH="coverage/BasicRecommender$CreateDataset.coverage" NAME="CreateDataset Coverage Results" MODIFIED="1553369281649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Preprocessing" />
+    <SUITE FILE_PATH="coverage/BasicRecommender$SVD__.coverage" NAME="SVD++ Coverage Results" MODIFIED="1553962708691" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Recommender" />
+    <SUITE FILE_PATH="coverage/BasicRecommender$TestRecommender.coverage" NAME="TestRecommender Coverage Results" MODIFIED="1549885295391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluation" />
+    <SUITE FILE_PATH="coverage/BasicRecommender$CleanDataset__1_.coverage" NAME="CleanDataset (1) Coverage Results" MODIFIED="1553369685040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Preprocessing" />
+    <SUITE FILE_PATH="coverage/BasicRecommender$RecommenderComparison.coverage" NAME="RecommenderComparison Coverage Results" MODIFIED="1549897931973" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluation" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-2038641777">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="12" />
+          <entry key="project.open.time.0" value="3" />
+          <entry key="project.open.time.10" value="2" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.6" value="2" />
+          <entry key="project.open.time.7" value="3" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="13" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="35" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PLAIN_TEXT" value="5" />
+          <entry key="Python" value="10261" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="419987472">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="945" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CSV" value="3" />
+          <entry key="Python" value="5" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="1910237906">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="11" />
+          <entry key="project.open.time.0" value="5" />
+          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="13" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="12" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="4760" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Recommender/SVD++.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="131" column="27" selection-start-line="131" selection-start-column="27" selection-end-line="131" selection-end-column="27" />
+              <folding>
+                <element signature="e#58#92#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Recommender/NowPlaying.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
+              <folding>
+                <element signature="e#58#94#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>n0044acfd618f6389d20a36c87ebf0db2</find>
+      <find>leaveOneOut</find>
+      <find>02d63991838c76696f4f9a76da3c1871</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>02d63991838c76696f4f9a76475c1871</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Recommender.py" />
+        <option value="$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/encodings/cp1252.py" />
+        <option value="$PROJECT_DIR$/Evaluation/TestRecommender.py" />
+        <option value="$PROJECT_DIR$/Evaluation/EvaluateAlgorithm.py" />
+        <option value="$PROJECT_DIR$/Evaluation/RecommenderComparison.py" />
+        <option value="$PROJECT_DIR$/Recommender/Recommender.py" />
+        <option value="$PROJECT_DIR$/Evaluation/Evaluator.py" />
+        <option value="$PROJECT_DIR$/Evaluation/EvaluatorPreProcessing.py" />
+        <option value="$PROJECT_DIR$/Evaluation/RecommenderEvaluation.py" />
+        <option value="$PROJECT_DIR$/Dataset/02d63991838c76696f4f9a76da3c1871.csv" />
+        <option value="$PROJECT_DIR$/Cleaning/CleanDataset.py" />
+        <option value="$PROJECT_DIR$/Preprocessing/one_hot_enconding.py" />
+        <option value="$PROJECT_DIR$/Preprocessing/DatasetFromDict.py" />
+        <option value="$PROJECT_DIR$/Preprocessing/CreateDataset.py" />
+        <option value="$PROJECT_DIR$/Preprocessing/CleanDataset.py" />
+        <option value="$PROJECT_DIR$/Recommender/NowPlaying.py" />
+        <option value="$PROJECT_DIR$/Recommender/SVD++.py" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1591" />
+    <option name="y" value="-118" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="BasicRecommender" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BasicRecommender" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BasicRecommender" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BasicRecommender" type="462c0819:PsiDirectoryNode" />
+              <item name="Dataset" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BasicRecommender" type="b2602c69:ProjectViewProjectNode" />
+              <item name="BasicRecommender" type="462c0819:PsiDirectoryNode" />
+              <item name="Preprocessing" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../recommender" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\James\Desktop\DT211cYr4\FinalYearProject\BasicRecommender\Recommender" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.SVD++">
+    <configuration name="CleanDataset (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="BasicRecommender" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Preprocessing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Preprocessing/CleanDataset.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CleanDataset" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="BasicRecommender" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Cleaning" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cleaning/CleanDataset.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CreateDataset" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="BasicRecommender" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Preprocessing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Preprocessing/CreateDataset.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="DatasetFromDict" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="BasicRecommender" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Preprocessing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Preprocessing/DatasetFromDict.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="SVD++" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="BasicRecommender" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Recommender" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Recommender/SVD++.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.CleanDataset" />
+      <item itemvalue="Python.SVD++" />
+      <item itemvalue="Python.CleanDataset (1)" />
+      <item itemvalue="Python.CreateDataset" />
+      <item itemvalue="Python.DatasetFromDict" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.SVD++" />
+        <item itemvalue="Python.DatasetFromDict" />
+        <item itemvalue="Python.CleanDataset (1)" />
+        <item itemvalue="Python.CreateDataset" />
+        <item itemvalue="Python.CleanDataset" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0dead9a9-d5cd-44b1-996d-4744d35126be" name="Default Changelist" comment="" />
+      <created>1549115762020</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1549115762020</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1593" y="-116" width="1550" height="838" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15033557" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32884097" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.44539008" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.33049646" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.3295302" />
+      <window_info anchor="right" id="Database" order="4" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>fav_list</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>top_100_recs</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>recommeded_df.drop_duplicates('artist', keep='first', inplace=True).sort_index()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>recommeded_df</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>recommeded_df.sort_values('vector cosine distance', ascending=True, inplace=True)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>recommeded_df.artist</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>recommeded_df[recommeded_df.artist != artist]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>SVD_algo</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../CFPlaylist/CreateTrainMatrix.py" />
+    <entry file="file://$PROJECT_DIR$/../CFPlaylist/MRSCF.py" />
+    <entry file="file://$PROJECT_DIR$/../CFPlaylist/CreateDataset.py" />
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/encodings/cp1252.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Evaluation/TestRecommender.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="75" column="76" lean-forward="true" selection-start-line="75" selection-start-column="76" selection-end-line="75" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Evaluation/RecommenderComparison.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="26" column="43" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Evaluation/EvaluateAlgorithm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1105">
+          <caret line="65" column="44" selection-start-line="65" selection-start-column="44" selection-end-line="65" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Evaluation/RecommenderEvaluation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="155" column="41" selection-start-line="155" selection-start-column="41" selection-end-line="155" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dataset/100kDataset.csv">
+      <provider selected="true" editor-type-id="csv-text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dataset/02d63991838c76696f4f9a76da3c1871.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="46" lean-forward="true" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Evaluation/EvaluatorPreProcessing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Evaluation/Evaluator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="20" lean-forward="true" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/pandas/core/reshape/reshape.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2269">
+          <caret line="700" column="4" selection-start-line="700" selection-start-column="4" selection-end-line="700" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocessing/one_hot_enconding.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="23" column="80" selection-start-line="23" selection-start-column="80" selection-end-line="23" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/pandas/core/frame.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="378" selection-start-line="378" selection-end-line="378" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/pandas/core/algorithms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17391">
+          <caret line="1048" selection-start-line="1048" selection-end-line="1048" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocessing/CreateDataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1462">
+          <caret line="86" selection-start-line="86" selection-end-line="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocessing/CleanDataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+          <folding>
+            <element signature="e#58#77#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocessing/DatasetFromDict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="36" lean-forward="true" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Recommender/SVD++.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="131" column="27" selection-start-line="131" selection-start-column="27" selection-end-line="131" selection-end-column="27" />
+          <folding>
+            <element signature="e#58#92#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Recommender/NowPlaying.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="e#58#94#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

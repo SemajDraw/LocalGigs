@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.postgres.fields.jsonb import JSONField
-from django.contrib.gis.db import models as geo_models
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
+from django.http import HttpRequest
 
 
 # Profile table model, each column of the table is defined here, what data types it
@@ -24,34 +24,45 @@ class Profile(models.Model):
         choices=GENDER_CHOICES,
         blank=True,
     )
-    last_location = geo_models.PointField(
-        verbose_name="last known location",
-        blank=True,
-        null=True
-    )
     profile_picture = models.ImageField(upload_to='media/user/profile_images',
                                         default='default_profile.jpeg')
-    interested_html = models.TextField(blank=True)
-    facebook_data = JSONField(blank=True, null=True)
+    saved_events = JSONField(blank=True, null=True, default=list)
+    recommended_events = JSONField(blank=True, null=True, default=list)
 
-    # Display the username as the identifier in django admin profile
+    # Display the email as the identifier in django admin (Profile)
     def __str__(self):
-        return self.user.username
+        return self.user.email
+
+
+# Spotify table model, stores the users access token and details on their playlist contents
+# Defines what initial parameters and restrictions are put on it the fields
+# This table is linked to the user table as a one to one relationship.
+class Spotify(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user_data = JSONField(blank=True, null=True)
+    artist_count = JSONField(blank=True, null=True)
+    recommended_artists = JSONField(blank=True, null=True, default=list)
+
+    # Display the email as the identifier in django admin (Spotify)
+    def __str__(self):
+        return self.user.email
 
 
 # This is a trigger that is fired once a user is created,
-# it creates a profile table entry for the user
+# it creates a profile and spotify table entry for the new user
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
+def create_user_profiles(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+        Spotify.objects.create(user=instance)
 
 
 # This is a trigger that is fired once a user is created,
 # it saves the Users profile
 @receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
+def save_user_profiles(sender, instance, **kwargs):
     instance.profile.save()
+    instance.spotify.save()
 
 
 # This is a trigger that is fired once a user is created,
@@ -61,5 +72,4 @@ def save_user_profile(sender, instance, **kwargs):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-
 

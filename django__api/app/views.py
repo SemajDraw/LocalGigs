@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib import messages
 from .forms import ProfilePicForm, ProfileForm
+from api import ticketmaster
 
 
 # Render landing page
@@ -9,10 +10,18 @@ def landing(request):
     return render(request, 'app/landing.html')
 
 
+# Render home page
+@login_required
+def home(request):
+    event_list = ticketmaster.search_ticketmaster(request)
+    return render(request, 'app/home.html', {'event_list': event_list})
+
+
 # Render profile page
 @login_required
 def profile(request):
-    return render(request, 'app/profile.html')
+    event_list = request.user.profile.saved_events
+    return render(request, 'app/profile.html', {'event_list': event_list})
 
 
 # Accepts a post request from a ProfileForm that is used to update the profile
@@ -49,5 +58,3 @@ def update_profile_pic(request):
     return render(request, 'app/update_profile_pic.html', {
         'profile_pic_form': form
     })
-
-

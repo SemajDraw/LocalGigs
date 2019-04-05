@@ -5,24 +5,38 @@ from allauth.account.utils import setup_user_email
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_gis import serializers as geo_serializers
-from app.models import Profile
+from app.models import Profile, Spotify
 
 
-# Used to update or return the last_location entry in the DB's Profile table
-class LastLocationSerializer(geo_serializers.GeoFeatureModelSerializer):
-
-    class Meta:
-        model = Profile
-        geo_field = "last_location"
-        fields = ('last_location',)
-
-
-# Used to update or return the interested_html entry in the DB's Profile table
-class InterestedHtmlSerializer(serializers.ModelSerializer):
+# Used to update or return the interested_gigs entry in the DB's Profile table
+class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('interested_html',)
+        fields = ('bio', 'age', 'saved_events', 'recommended_events')
+
+    def update(self, instance, validated_data):
+        instance.bio = validated_data.get('bio', instance.bio)
+        instance.age = validated_data.get('age', instance.age)
+        instance.saved_events = validated_data.get('saved_events', instance.saved_events)
+        instance.recommended_events = validated_data.get('recommended_events', instance.recommended_events)
+        instance.save()
+        return instance
+
+
+# Used to update or return the interested_gigs entry in the DB's Profile table
+class SpotifySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Spotify
+        fields = ('user_data', 'artist_count', 'recommended_artists')
+
+    def update(self, instance, validated_data):
+        instance.user_data = validated_data.get('user_data', instance.user_data)
+        instance.artist_count = validated_data.get('artist_count', instance.artist_count)
+        instance.recommended_artists = validated_data.get('recommended_artists', instance.recommended_artists)
+        instance.save()
+        return instance
 
 
 # Used to update or return an authenticated users details

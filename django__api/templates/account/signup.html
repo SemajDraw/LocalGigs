@@ -11,10 +11,11 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-    <div id="main_section" class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark">
+    <div style="" id="main_section" class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark">
         <div style="padding-top: 1vh">
             <div class="loginmodal-container">
-                <h1 style="font-family: 'Bungee Shade'; font-size: 40px;">{% trans "Sign Up" %}</h1>
+                <h1 style="font-family: 'Bungee Shade'; font-size: 40px;">{% trans "Sign Up" %}</h1><br>
+                <p><a href="{% url 'social:begin' 'spotify' %}">Register with Spotify <i class="fa fa-spotify"></i></a> </p>
                 <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
                     {% csrf_token %}
                     {{ form.as_p }}

@@ -1,0 +1,33 @@
+
+<ion-content padding style="background-color: #ebecee;">
+
+  <div id="body" class="container">
+    <ion-list id="centerBody" inset>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h2 class="header">{{ user.first_name }}</h2>
+            </ion-col>
+            <ion-col>
+              <button id="logOut" (click)="logOut()" ion-button icon-only>
+                <ion-icon style="color: #ffffff;" name="md-log-out"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item id="detailsContainer">
+        <br>
+        <div id="userDetails" text-wrap>
+          <p class="paragraph">Username: {{ user.username }}</p>
+          <p class="paragraph">Name: {{ user.first_name}} {{ user.last_name}}</p>
+          <p class="paragraph">Email: {{ user.email }}</p>
+          <p class="paragraph">Age: {{ user.age }}</p>
+          <p class="paragraph">Gender: {{ user.gender }}</p>
+          <p class="paragraph">Bio: {{ user.bio }}</p>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

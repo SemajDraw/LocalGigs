@@ -1,0 +1,52 @@
+{% for event in event_list %}
+    <div class="event_container">
+        <div id="event{{ forloop.counter }}" class="event_div">
+            <div class="image_div">
+                <div class="image_container">
+                    <img class="image" src="{{ event.image }}" onerror="this.onerror=null;this.src='/static/app/images/default_artist.png';"/>
+                </div>
+            </div>
+            <div class="date_div">
+                <div class="date_month">{{ event.date.month }}</div>
+                <div class="date_day">{{ event.date.day }}</div>
+            </div>
+            <div class="text_div">
+                <h2 class="event_name">{{ event.name }}</h2>
+                <div class="venue_location">
+                    <div class="venue">{{ event.venue.name }}</div>
+                    <div class="location">{{ event.venue.city }}, {{ event.venue.country }}</div>
+                </div>
+            </div>
+            <div class="links_div">
+                <div class="youtube_div">
+                    <div class="youtube_img_container">
+                        <a href="{{ event.youtube_url }}" class="youtube_link">
+                            <img class="youtube_image" src="/static/app/images/youtube_icon.png"/>
+                        </a>
+                    </div>
+                    <div class="youtube_text">Watch</div>
+                </div>
+                <div class="spotify_div">
+                    <div class="spotify_img_container">
+                        <a href="{{ event.spotify_url }}" class="spotify_link">
+                            <img class="spotify_image" src="/static/app/images/spotify_icon.png"/>
+                        </a>
+                         </div>
+                    <div class="spotify_text">Listen</div>
+                </div>
+                <div class="ticketmaster_div">
+                    <div class="ticketmaster_img_container">
+                        <a href="{{ event.ticketmaster_url }}" class="ticketmaster_link">
+                            <img class="ticktmaster_image" src="/static/app/images/ticketmaster_icon.png"/>
+                        </a>
+                    </div>
+                    <div class="ticketmaster_text">Tickets</div>
+                </div>
+            </div>
+            <div class="save_div">
+                <a onclick="saveEvent({{ event }})"><i class="save_heart fa fa-heart fa-3x"></i></a>
+            </div>
+        </div>
+    </div>
+    <hr class="event_seperator">
+{% endfor %}
