@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'social_django',
 
     'rest_auth',
     'rest_auth.registration',
@@ -62,6 +63,7 @@ INSTALLED_APPS = [
     'ticketpy',
     'sslserver',
     'corsheaders',
+    'background_task',
 
     'app.apps.AppConfig',
     'api',
@@ -80,6 +82,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'django__api.urls'
@@ -97,6 +100,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -107,10 +112,34 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_SIGNUP_FORM_CLASS = 'app.forms.SignupForm'
 
 AUTHENTICATION_BACKENDS = (
+    'social_core.backends.spotify.SpotifyOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+
 )
 
+
+# Django social auth SPOTIFY
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_SPOTIFY_KEY = '6cb146053e70453eb4a745a93dcfe480'
+SOCIAL_AUTH_SPOTIFY_SECRET = 'a6a8705f1436458288f53e273c27218b'
+SOCIAL_AUTH_SPOTIFY_SCOPE = ['user-read-private playlist-read-private user-top-read user-read-email']
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.social_auth.associate_by_email',
+)
+
+
+# Django social account FACEBOOK
 SOCIALACCOUNT_QUERY_EMAIL = True
 
 ACCOUNT_EMAIL_REQUIRED = True
@@ -219,6 +248,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 }
 
 LEAFLET_CONFIG = {
+    'DEFAULT_ZOOM': 14,
     'MIN_ZOOM': 1,
     'MAX_ZOOM': 18,
 
@@ -231,8 +261,17 @@ LEAFLET_CONFIG = {
     }
 }
 
-LOGIN_REDIRECT_URL = '/profile/'
+LOGIN_REDIRECT_URL = '/home/'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+TM_APP_KEY = "BabzejjEdlmaAhyC7DoWWAYyb8u66r5u"
+
+TM_REC_KEY = "RWzHxZlDSFckjuO9jKAXhJSGdqxG5HKv"
+
+GEOIP_PATH = os.path.join(BASE_DIR, 'GeoLite2/GeoLite2-City_20190312')
+
+# # Process background tasks in parallel
+# BACKGROUND_TASK_RUN_ASYNC = True

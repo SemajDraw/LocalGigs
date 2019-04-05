@@ -1,3 +1,10 @@
+#sperator {
+    background-color: white;
+    height:25px;
+    width: 1px;
+    margin-top: 17px;
+}
+
 #login-modal{
     padding-top: 15vh;
 }
@@ -65,12 +72,12 @@
     padding: 0 8px;
 }
 
-#loginmodal-submit {
+#loginmodal-submit , #logoutmodal-submit, #authmodal-submit{
     border: 0px;
     width: 100%;
     color: #fff;
     text-shadow: 0 1px rgba(0,0,0,0.1);
-    background-color: darkcyan;
+    background-color: #02B9AB;
     font-weight: 400;
     padding: 5px 0px;
     font-family: roboto;
@@ -78,10 +85,10 @@
     border-radius: 10px;
 }
 
-#loginmodal-submit:hover {
+#loginmodal-submit:hover, #logoutmodal-submit:hover, #authmodal-submit:hover {
     border: 0px;
     text-shadow: 0 1px rgba(0,0,0,0.3);
-    background-color: darkcyan;
+    background-color: #02B9AB;
 }
 
 .loginmodal-container a {
@@ -99,7 +106,39 @@
 }
 
 #login-button{
-    background-color: darkcyan;
+    background-color: #02B9AB;
     font-size: 30px;
     font-weight: 400;
+}
+
+/* FOOTER */
+
+#footer_container {
+    background-color: black;
+    height: 250px;
+    position: relative;
+    z-index: -1;
+}
+
+#footer_home {
+    padding-top: 100px;
+    padding-left: 15%;
+    font-size: 2em;
+    font-family: 'Bungee Shade';
+    color: white;
+    text-align: center;
+}
+
+#footer_links {
+    padding-top: 125px;
+    padding-right: 15%;
+    font-size: 1.5em;
+    font-family: 'Roboto';
+    color: white;
+    text-align: center;
+}
+
+#footer_copyright {
+    padding-top:50px;
+    color: white;
 }

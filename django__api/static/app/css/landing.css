@@ -19,5 +19,8 @@
 }
 
 #center_button {
-    color: white; font-family: Roboto; font-size: 4vh; background-color: darkcyan;
+    color: white;
+    font-family: Roboto;
+    font-size: 4vh;
+    background-color: #02B9AB;
 }

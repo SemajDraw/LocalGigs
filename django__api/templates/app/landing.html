@@ -19,7 +19,7 @@
                     <h1 class="display-2  text-light mb-2 mt-5" style="color: white; font-family: Roboto; font-size: 10vh"><strong>Live Music</strong> </h1>
                     <p class="lead  text-light mb-5" style="color: white; font-family: Roboto; font-size: 5vh">Just One Click Away</p>
                     {% if user.is_authenticated %}
-                       <p><a id="center_button" href="{% url 'app:profile' %}" class="btn bg-primary btn-round text-light btn-lg btn-rised">
+                       <p><a id="center_button" href="{% url 'app:home' %}" class="btn bg-primary btn-round text-light btn-lg btn-rised">
                         Find a Gig
                     </a></p>
                     {% else %}

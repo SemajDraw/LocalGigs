@@ -1,3 +1,51 @@
 page-login {
 
+  .item-md.item-block .item-inner,
+  .item-md.item-input.input-has-focus .item-inner,
+  .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
+  .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner,
+  .list-md .item-input.input-has-focus:last-child,
+  .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child,
+  .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+      border-bottom: none;
+      box-shadow: none;
+  }
+  .list-md .item-input.input-has-focus:last-child .item-inner,
+  .list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner,
+  .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child .item-inner {
+      box-shadow: none;
+  }
+
+  .label{
+    padding-left: 10px;
+    color: #ffffff;
+  }
+
+  .input {
+    background-color: #838381;
+    padding-left: 10px;
+    color: #ffffff;
+    border-radius: 10px;
+
+  }
+
+  .input.ng-invalid{
+   border-bottom-color: transparent;
+  }
+
+  .input.ng-valid{
+     border-bottom-color: transparent;
+  }
+
+  .button {
+    background-color: #008B8B;
+    font-size: 1.5em;
+    color: white;
+    border-radius: 10px;
+  }
+
+  .item {
+    background-color: #3a3c48;
+    font-size: 2.5vh;
+  }
 }

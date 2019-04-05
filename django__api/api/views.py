@@ -1,20 +1,27 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, get_user_model
-from rest_framework import permissions, authentication, status, generics
+from django.contrib.auth.signals import user_logged_in
+from django.dispatch import receiver
+from django.shortcuts import render
+
+from rest_framework import permissions, authentication, status
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from datetime import datetime, timedelta
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from rest_auth.registration.views import SocialLoginView
-from django.contrib.gis.geos import Point
-from . import serializers
+from social_django.utils import load_strategy
+from collections import Counter
+from . import serializers, ticketmaster
+
+import spotipy
 import requests
 import json
 
-# Token for Ticketmaster App and base url
-tm_token = 'BabzejjEdlmaAhyC7DoWWAYyb8u66r5u'
-tm_base_url = 'https://app.ticketmaster.com/discovery/v2/'
+
+# Spotify base URL
+sp_base_url = 'https://api.spotify.com/'
 
 
 # Django-rest-auth classes
@@ -22,11 +29,336 @@ class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
 
 
+@receiver(user_logged_in)
+@login_required
+@permission_classes((permissions.IsAuthenticated, ))
+@authentication_classes((authentication.TokenAuthentication, authentication.SessionAuthentication))
+def get_users_spotify_details(request, **kwargs):
+    """
+    Make a GET request to the spotify API for the users playlist IDs
+    :param request: Incoming request
+    :return: Result in Json
+    """
+    if request.user.social_auth.exists():
+        serializer = serializers.SpotifySerializer
+        user = request.user
+        if user.is_authenticated:
+            social = user.social_auth.get(provider='spotify')
+            social.refresh_token(load_strategy())
+            auth_header = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer {}'.format(social.extra_data['access_token'])
+            }
+            try:
+                res = requests.get(sp_base_url + 'v1/me', headers=auth_header)
+                response = json.loads(res.content)
+                serializer.update(serializer, user.spotify, {'user_data': response})
+                return serializer
+
+            except Exception as e:
+                return Response({"detail": e}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            print('Not a valid user')
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+    else:
+        pass
+
+
+@receiver(user_logged_in)
+@login_required
+@permission_classes((permissions.IsAuthenticated, ))
+@authentication_classes((authentication.TokenAuthentication, authentication.SessionAuthentication))
+def get_spotify_playlist_artist_count(request, **kwargs):
+    """
+    Make a GET request to the spotify API for the users playlist IDs
+    :param request: Incoming request search and city string
+    :return: Result in Json
+    """
+    if request.user.social_auth.exists():
+        serializer = serializers.SpotifySerializer
+        user = request.user
+        if user.is_authenticated:
+            social = user.social_auth.get(provider='spotify')
+            social.refresh_token(load_strategy())
+            token = social.extra_data['access_token']
+            username = social.uid
+
+            try:
+                if token:
+                    sp = spotipy.Spotify(auth=token)
+                    playlists = sp.user_playlists(username)
+                    artist_list = []
+                    for playlist in playlists['items']:
+                        results = sp.user_playlist(username, playlist['id'], fields='tracks, next')
+                        tracks = results['tracks']
+                        tracks_items = tracks['items']
+
+                        if tracks['next'] is None:
+                            for track in tracks_items:
+                                artist_list.append(track['track']['artists'][0]['name'])
+
+                        else:
+                            while tracks['next']:
+                                tracks = sp.next(tracks)
+                                tracks_items.extend(tracks['items'])
+
+                            for track in tracks_items:
+                                artist_list.append(track['track']['artists'][0]['name'])
+
+                    # Get unique artists and add new artists to the profile
+
+                    # Create a unique dictionary of all artists
+                    artist_count = dict(Counter(artist_list))
+
+                    artist_count, favourite_artists = limit_artist_count_build_favourites(
+                        artist_count, user.spotify.recommended_artists)
+
+                    artist_count = remove_malformed_entries(artist_count)
+
+                    serializer.update(serializer, user.spotify, {'artist_count': artist_count,
+                                                                 "recommended_artists": favourite_artists})
+
+                    update_recommended_events(request)
+
+                else:
+                    print('No token found for user: {}'.format(user))
+                    get_users_spotify_details(request)
+
+                return Response(artist_count, status=status.HTTP_200_OK)
+
+            except Exception as e:
+                return Response({"detail": e}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            print('Not a valid user')
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+    else:
+        pass
+
+
+def update_recommended_events(request):
+    try:
+        user_id = request.user.id
+        user_ip = request.META.get('REMOTE_ADDR', None)
+        ticketmaster.update_recommended_events(user_id, user_ip)
+    except Exception as e:
+        print('Event update failed...')
+
+
+def limit_artist_count_build_favourites(artist_count, favourite_artists):
+    # Limit count to 10
+    for k, v in artist_count.items():
+        if v > 10:
+            artist_count[k] = 10
+        if v >= 4 and k not in favourite_artists:
+            favourite_artists.append(k)
+    return artist_count, favourite_artists
+
+
+def remove_malformed_entries(artist_count):
+    try:
+        artist_count.pop('"')
+    except KeyError:
+        print('No quotation entries in this profile\n')
+    try:
+        artist_count.pop('')
+    except KeyError:
+        print('No blank entries in this profile\n')
+    try:
+        artist_count.pop(' ')
+    except KeyError:
+        print('No space entries, in this profile\n')
+    return artist_count
+
+
+# Allows an authenticated user to make a call to the Ticketmaster API with search parameter
+@login_required
+@permission_classes((permissions.IsAuthenticated,))
+@authentication_classes((authentication.TokenAuthentication, authentication.SessionAuthentication))
+def search_ticketmaster_events(request):
+    """
+    Make a GET request to the ticketmaster API with the strings entered by the user
+    :param request: Incoming request search and city string
+    :return: Result in Json
+    """
+    if request.method == 'GET':
+        try:
+            event_list = ticketmaster.search_ticketmaster(request)
+            return render(request, 'app/events.html', {'event_list': event_list})
+
+        except Exception as e:
+            return Response({"detail": e}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+# Returns a list of recommended gig objects for a user
+@login_required
+@permission_classes((permissions.IsAuthenticated,))
+@authentication_classes((authentication.TokenAuthentication, authentication.SessionAuthentication))
+def render_recommended_events(request):
+    """
+    Make a GET request to the ticketmaster API with a list of the users recommended artists
+    :param request: Incoming request search and city string
+    :return: Result in Json
+    """
+    if request.method == 'GET':
+        try:
+            event_list = request.user.profile.recommended_events
+            return render(request, 'app/events.html', {'event_list': event_list})
+
+        except Exception as e:
+            return Response({"detail": e}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST', ])
+@login_required
+@permission_classes((permissions.IsAuthenticated, ))
+@authentication_classes((authentication.TokenAuthentication, authentication.SessionAuthentication))
+def update_saved_events(request):
+
+    if request.method == 'POST':
+        try:
+            user = request.user
+            serializer = serializers.ProfileSerializer
+            if user.is_authenticated:
+                if user.profile.saved_events == "[]":
+                    saved_events = json.loads(user.profile.saved_events)
+                else:
+                    saved_events = user.profile.saved_events
+
+                new_event = json.loads(request.POST['save_event'])
+
+                if not any(event['name'] == new_event['name']
+                       and event['date'] == new_event['date'] for event in saved_events):
+
+                    saved_events.append(new_event)
+                    serializer.update(serializer, user.profile, {'saved_events': saved_events})
+                    return Response(status=status.HTTP_200_OK)
+                else:
+                    pass
+
+        except Exception as e:
+            print(e)
+            return Response({"detail": "Bad Request"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST', ])
+@login_required
+@permission_classes((permissions.IsAuthenticated, ))
+@authentication_classes((authentication.TokenAuthentication, authentication.SessionAuthentication))
+def delete_saved_event(request):
+
+    if request.method == 'POST':
+        try:
+            user = request.user
+            serializer = serializers.ProfileSerializer
+            if user.is_authenticated:
+                saved_events = user.profile.saved_events
+                delete_event = json.loads(request.POST['save_event'])
+                saved_events[:] = [event for event in saved_events if not (event['name'] == delete_event['name']
+                                                                           and event['date'] == delete_event['date'])]
+
+                serializer.update(serializer, user.profile, {'saved_events': saved_events})
+                return Response(status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print(e)
+            return Response({"detail": "Bad Request"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST', ])
+@login_required
+@permission_classes((permissions.IsAuthenticated, ))
+@authentication_classes((authentication.TokenAuthentication, authentication.SessionAuthentication))
+def get_saved_events(request):
+
+    if request.method == 'GET':
+        try:
+            user = request.user
+            saved_events = user.profile.saved_events
+            return Response({'event_list': saved_events}, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print(e)
+            return Response({"detail": "Bad Request"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Returns a list of recommended gig objects for a user
+@login_required
+@permission_classes((permissions.IsAuthenticated,))
+@authentication_classes((authentication.TokenAuthentication, authentication.SessionAuthentication))
+def get_recommended_events(request):
+    """
+    Make a GET request to the ticketmaster API with a list of the users recommended artists
+    :param request: Incoming request search and city string
+    :return: Result in Json
+    """
+    if request.method == 'GET':
+        try:
+            event_list = request.user.profile.recommended_events
+            return Response({'event_list': event_list}, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({"detail": e}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+# # Returns a list of recommended gig objects for a user
+# @api_view(['GET', ])
+# @login_required
+# @permission_classes((permissions.IsAuthenticated,))
+# @authentication_classes((authentication.TokenAuthentication, authentication.SessionAuthentication))
+# def get_recommender_model_events(request):
+#     """
+#     Make a GET request to the ticketmaster API with a list of the users recommended artists
+#     :param request: Incoming request search and city string
+#     :return: Result in Json
+#     """
+#     if request.method == 'GET':
+#         user = request.user
+#         try:
+#             user_artist_count = user.spotify.artist_count
+#             user_email = user.email
+#             res = requests.post('http://127.0.0.1:8001/api/get_recommendations/',
+#                                 data={user_email: json.dumps(user_artist_count)})
+#             recommended_artists = json.loads(res.content)['recommended_artists']
+#
+#         except Exception as e:
+#             print(e)
+#             return Response(status=status.HTTP_400_BAD_REQUEST)
+#     else:
+#         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+# Allows an authenticated user to make a call to the Ticketmaster API with search parameter
+@login_required
+@permission_classes((permissions.IsAuthenticated,))
+@authentication_classes((authentication.TokenAuthentication, authentication.SessionAuthentication))
+def get_ticketmaster_events(request):
+    """
+    Make a GET request to the ticketmaster API with the strings entered by the user
+    :param request: Incoming request search and city string
+    :return: Result in Json
+    """
+    if request.method == 'GET':
+        try:
+            event_list = ticketmaster.search_ticketmaster(request)
+            return Response({'event_list': event_list}, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({"detail": e}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 # API login for mobile application that returns the users profile information
 # and an authentication token
 @api_view(["GET", ])
 @permission_classes((permissions.AllowAny,))
-# @csrf_exempt
 def token_login(request):
     if (not request.GET["email"]) or (not request.GET["password"]):
         return Response({"detail": "Missing email and/or password"}, status=status.HTTP_400_BAD_REQUEST)
@@ -37,21 +369,11 @@ def token_login(request):
             login(request, user)
             try:
                 my_token = Token.objects.get(user=user)
-                username = user.first_name
-                email = user.email
-                firstName = user.first_name
-                lastName = user.last_name
-                age = user.profile.age
-                gender = user.profile.gender
-                bio = user.profile.bio
+                first_name = user.first_name
+                last_name = user.last_name
                 return Response({"token": "{}".format(my_token.key),
-                                 "first_name": "{}".format(firstName),
-                                 "last_name": "{}".format(lastName),
-                                 "username": "{}".format(username),
-                                 "email": "{}".format(email),
-                                 "age": "{}".format(age),
-                                 "gender": "{}".format(gender),
-                                 "bio": "{}".format(bio),
+                                 "first_name": "{}".format(first_name),
+                                 "last_name": "{}".format(last_name),
                                  },
                                 status=status.HTTP_200_OK)
             except Exception as e:
@@ -60,169 +382,3 @@ def token_login(request):
             return Response({"detail": "Inactive account"}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({"detail": "Invalid User Id of Password"}, status=status.HTTP_400_BAD_REQUEST)
-
-
-# Gets an authenticated users details from the BD and returns it
-class UserDetails(generics.RetrieveAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = serializers.CurrentUserSerializer
-
-    def get_object(self):
-        return get_user_model().objects.get(email=self.request.user.email)
-
-
-# Allows an authenticated user to make a call to the Ticketmaster API with search and city parameters
-# which return a response from which name, url, image, date, time, venue_id and youtube_url are extracted
-# and returned as an array of objects.
-@api_view(["GET", ])
-@login_required
-@permission_classes((permissions.IsAuthenticated,))
-@authentication_classes((authentication.TokenAuthentication, authentication.SessionAuthentication))
-def tm_get_events(request):
-    """
-    Make a GET request to the ticketmaster API with the strings entered by the user
-    :param request: Incoming request search and city string
-    :return: Result in Json
-    """
-
-    search = request.query_params.get("search", "")
-    if search:
-        search = search.lower()
-
-    city = request.query_params.get("city", "")
-    if city:
-        city = city.lower()
-
-    date_time = datetime.now()
-
-    start_date_time = datetime.strftime(date_time, "%Y-%m-%dT00:00:00Z")
-    end_date_time = datetime.strftime(date_time + timedelta(days=7), "%Y-%m-%dT00:00:00Z")
-
-    try:
-        response = requests.get(tm_base_url + 'events.json?classificationName=' + search +
-                                '&city=' + city + '&startDateTime=' + start_date_time +
-                                '&endDateTime=' + end_date_time + '&apikey=' + tm_token)
-        response_content = json.loads(response.content)
-        response_list = response_content['_embedded']['events']
-
-        event_list = []
-        for item in response_list:
-            try:
-                event = {
-                    "name": item['name'],
-                    "url": item['url'],
-                    "image": item['images'][0]['url'],
-                    "date": item['dates']['start']['localDate'],
-                    "time": item['dates']['start']['localTime'],
-                    "venue_id": item['_embedded']['venues'][0]['id'],
-                    "youtube_url": item['_embedded']['attractions'][0]['externalLinks']['youtube'][0]['url']
-                }
-            except KeyError:
-                event = {
-                    "name": item['name'],
-                    "url": item['url'],
-                    "image": item['images'][0]['url'],
-                    "date": item['dates']['start']['localDate'],
-                    "time": item['dates']['start']['localTime'],
-                    "venue_id": item['_embedded']['venues'][0]['id']
-                }
-
-            event_list.append(event)
-
-        return Response(event_list, status=status.HTTP_200_OK)
-
-    except Exception as e:
-        return Response({"detail": e}, status=status.HTTP_400_BAD_REQUEST)
-
-
-# Allows an authenticated user to make a call to the Ticketmaster API with venue_id as a parameter
-# which return a response from which name, address, longlat, url, images are extracted
-# and returned as an array of objects.
-@api_view(["GET", ])
-@login_required
-@permission_classes((permissions.IsAuthenticated,))
-@authentication_classes((authentication.TokenAuthentication, authentication.SessionAuthentication))
-def tm_get_venue(request):
-    """
-    Make a GET request to the ticketmaster API with the strings entered by the user
-    :param request: Incoming request venue_id string
-    :return: Result in Json
-    """
-
-    venue_id = request.query_params.get("venue_id", "")
-
-    try:
-        response = requests.get(tm_base_url + 'venues/' + venue_id + '.json?apikey=' + tm_token)
-        venue_object = json.loads(response.content)
-        try:
-            venue = {
-                "name": venue_object['name'],
-                "address": venue_object['address']['line1'],
-                "longlat": venue_object['location'],
-                "url": venue_object['url'],
-                "images": venue_object['images']
-            }
-        except KeyError:
-            venue = {
-                "name": venue_object['name'],
-                "address": venue_object['address']['line1'],
-                "longlat": venue_object['location'],
-                "url": venue_object['url']
-            }
-
-        return Response(venue, status=status.HTTP_200_OK)
-
-    except Exception as e:
-        return Response({"detail": e}, status=status.HTTP_400_BAD_REQUEST)
-
-
-# Accepts PUT or PATCH request from and authenticated user that updates the last_location entry in the
-# Profile table of the DB associated with them, type is a GEO point.
-class UpdatePosition(generics.UpdateAPIView):
-    authentication_classes = (authentication.TokenAuthentication, authentication.SessionAuthentication)
-    permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = serializers.LastLocationSerializer
-
-    def get_object(self):
-        return get_user_model().objects.get(email=self.request.user.email)
-
-    def perform_update(self, serializer, **kwargs):
-        try:
-            lat1 = float(self.request.data.get("lat", False))
-            lon1 = float(self.request.data.get("long", False))
-            lat2 = float(self.request.query_params.get("lat", False))
-            lon2 = float(self.request.query_params.get("long", False))
-            if lat1 and lon1:
-                point = Point(lon1, lat1)
-            elif lat2 and lon2:
-                point = Point(lon2, lat2)
-            else:
-                point = None
-
-            if point:
-                serializer.instance.profile.last_location = point
-                serializer.save()
-            return serializer
-        except:
-            pass
-
-
-# Accepts PUT or PATCH request from and authenticated user that updates the interested_html entry in the
-# Profile table of the DB associated with the user, type is text.
-class UpdateInterestedHTML(generics.UpdateAPIView):
-    authentication_classes = (authentication.TokenAuthentication, authentication.SessionAuthentication)
-    permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = serializers.InterestedHtmlSerializer
-
-    def get_object(self):
-        return get_user_model().objects.get(email=self.request.user.email)
-
-    def perform_update(self, serializer, **kwargs):
-        try:
-            html = self.request.data.get("interested_html", False)
-            serializer.instance.profile.interested_html = html
-            serializer.save()
-            return serializer
-        except:
-            pass
-

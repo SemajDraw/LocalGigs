@@ -1,0 +1,48 @@
+page-profile {
+
+  #body {
+    border-radius: 10px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
+    height: 80vh;
+  }
+
+  #centerBody {
+    height: 80vh;
+  }
+
+  .paragraph {
+    font-size: 3vh;
+    font-family: Roboto;
+  }
+
+  .header {
+    font-family: Bungee Shade;
+    padding-top: 1.5vh;
+    font-size: 4vh;
+  }
+
+  #logOut {
+    font-family: Bungee Shade;
+    background-color: #008B8B;
+    font-size: 2.5vh;
+    float: right;
+    padding: 1vh
+  }
+
+  #detailsContainer {
+    font-size: 2.5vh;
+    height: 85%;
+    padding-top: 0px;
+  }
+
+  #userDetails {
+    float: top;
+    padding-top: 0px;
+    height:65vh;
+    width:100%;
+
+  }
+
+}
+
+

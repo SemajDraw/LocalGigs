@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RestProvider {
 
-  baseUrl = 'http://52.209.96.131/localgigs/api/';
+  baseUrl = 'http://127.0.0.1:8000/api/';
   userDetails: any;
 
 
@@ -32,9 +32,9 @@ export class RestProvider {
   }
 
   // Make POST request the Django API to create a new user
-  userSignUp(username, firstName, lastName, email, password, passwordCon) {
+  userSignUp(username, email, firstName, lastName, password, passwordCon) {
     return new Promise(resolve => {
-      this.http.post(this.baseUrl + 'rest_auth/registration', {
+      this.http.post(this.baseUrl + 'rest_auth/registration/', {
         "username": username,
         "email": email,
         "first_name": firstName,
@@ -48,30 +48,55 @@ export class RestProvider {
 
   // Make a GET request to the Django API which makes a GET request to the Ticketmaster API
   // which returns a list of events.
-  searchGigs(gig, city) {
+  searchEvents(search) {
     const headers = this.createHeaders();
     return new Promise(resolve => {
-      this.http.get(this.baseUrl + 'get_events/?search=' + gig + '&city=' + city, {headers: headers} )
+      this.http.get(this.baseUrl + 'get_ticketmaster_events/?search=' + search , {headers: headers} )
         .subscribe(data => { resolve(data); }, err => { console.log(err);
         });
     });
   }
 
-  // Make a GET request to the Django API which makes a GET request to the Ticketmaster API
-  // which returns the details of the venue.
-  venueInfo(venueId) {
+  // Gets the users interested list from db interested_gigs column
+  getSavedEvents () {
     const headers = this.createHeaders();
     return new Promise(resolve => {
-      this.http.get(this.baseUrl + 'get_venue_details/?venue_id=' + venueId, {headers: headers} )
-        .subscribe(data => { resolve(data); }, err => { console.log(err);
-        });
+    this.http.get(this.baseUrl + 'get_saved_events/', {headers: headers}
+      ).subscribe(data => { resolve(data); }, err => { console.log(err);});
+    });
+  }
+
+  // Gets the users interested list from db interested_gigs column
+  getRecommendedEvents () {
+    const headers = this.createHeaders();
+    return new Promise(resolve => {
+    this.http.get(this.baseUrl + 'get_recommended_events/', {headers: headers}
+      ).subscribe(data => { resolve(data); }, err => { console.log(err);});
+    });
+  }
+
+  // Gets the users interested list from db interested_gigs column
+  saveEvent () {
+    const headers = this.createHeaders();
+    return new Promise(resolve => {
+    this.http.get(this.baseUrl + 'save_event/', {headers: headers}
+      ).subscribe(data => { resolve(data); }, err => { console.log(err);});
+    });
+  }
+
+  // Gets the users interested list from db interested_gigs column
+  deleteEvent () {
+    const headers = this.createHeaders();
+    return new Promise(resolve => {
+    this.http.get(this.baseUrl + 'delete_event/', {headers: headers}
+      ).subscribe(data => { resolve(data); }, err => { console.log(err);});
     });
   }
 
   // Create authorization headers for necessary requests
   createHeaders(){
     const token = this.getAuthToken();
-     let headers = new HttpHeaders().set('Authorization', 'Token ' + token)
+     let headers = new HttpHeaders().set('Authorization', 'Token ' + token);
 
     return headers;
   }

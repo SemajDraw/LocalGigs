@@ -7,7 +7,7 @@ from app.models import Profile
 class SignupForm(forms.Form):
     first_name = forms.CharField(max_length=30, label='First Name',
                                  widget=forms.TextInput(attrs={'placeholder': 'First Name'}))
-    last_name = forms.CharField(max_length=30, label='Last Name',
+    last_name = forms.CharField(max_length=40, label='Last Name',
                                 widget=forms.TextInput(attrs={'placeholder': 'Last Name'}))
 
     def signup(self, request, user):
@@ -28,10 +28,3 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ('age', 'bio', 'gender')
-
-
-# Form to upload profile pic
-class InterestedHTMLForm(ModelForm):
-    class Meta:
-        model = Profile
-        fields = ('interested_html',)

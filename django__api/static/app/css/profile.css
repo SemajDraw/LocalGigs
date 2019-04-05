@@ -1,156 +1,119 @@
+#auth-modal {
+    padding-top: 25vh;
+}
+
+#spotify_auth_button {
+     border: 0px;
+    width: 100%;
+    color: #fff;
+    text-shadow: 0 1px rgba(0,0,0,0.5);
+    background-color: #259998;
+    font-weight: 400;
+    padding: 5px 0px;
+    font-family: roboto;
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+#spotify_auth_button:hover {
+    border: 0px;
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: #259998;
+}
+
 #main_div{
+    overflow: hidden;
+    min-height: 1000px;
     background-color: #ebecee;
     padding: 10vh 5vh 5vh 5vh;
 }
 
 #main_div_container{
     background-color: white;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+    min-height: 900px;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1);
     border-radius: 3px;
+    padding: 20px;
+    overflow: hidden;
+    margin-top: 10px;
 }
 
-#user_details{
-    /*border: 1px solid black;*/
-
-    background-color: #fff;
-    padding: 30px;
-    margin-bottom: 4rem;
-    padding-top: 2vh;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+/*************** WELCOME ******************/
+#profile_div {
+    background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    padding: 10px;
+    height: 150px;
     font-family: Roboto;
     -webkit-box-sizing: border-box;
     -webkit-text-size-adjust: 100%;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    color: #222;
-    font-size: 1.2em;
-    line-height: 1.6;
-    font-weight: 400;
-    border-radius: 3px;
+    color: white;
+    font-size: 1.7em;
+    font-weight: 300;
 }
 
-#leaflet-container-pos{
+#profile_container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+#profile_pic_container {
+    display: inline-block;
+    margin-right: 20px;
+    height: 100px;
+    width: 100px;
+}
+
+#profile_pic_div {
+    height: 90px;
+    width: 90px;
+    margin-top: 10px;
+    border-radius: 50%;
+
+}
+
+#profile_pic {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+}
+
+#change_pic_text {
+    font-family: Roboto;
+    color: white;
+    font-size: 0.8em;
+    line-height: 1.6;
+    font-weight: 200;
+    margin-left: 15px;
+}
+
+#profile_text {
+    margin-top: 20px;
     width: 100%;
-    height: 70vh;
-    padding-left: 0px;
-    padding-right: 3%;
-    padding-bottom: 5vh;
+}
+
+#map_div {
+    overflow-x: hidden;
+    display: block;
+    font-family: Roboto;
+    -webkit-font-smoothing: antialiased;
+    margin: 20px 0;
+    width:100%;
+    padding: 0 20px;
+    height: 500px;
+
+}
+
+#map_container {
+    height: 500px;
 }
 
 .leaflet-container {
-    margin: auto;
-    height: 100%;
     width: 100%;
-    text-align: center;
-    border-radius: 2px;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
-    /*border:1px solid black;*/
-}
-
-#list-container{
-    padding-top: 5vh;
-    /*border:1px solid black;*/
-}
-
-#row-container{
-    padding-top: 2%;
-    /*border:1px solid black;*/
-    height:100%;
-
-}
-
-#left-col{
-    /*border:1px solid black;*/
-    height:100%;
-    padding-left: 0px;
-}
-
-#left-panel{
-    height:60vh;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
-}
-
-#right-col{
-    /*border:1px solid black;*/
-    height:100%;
-    padding-right: 2.5%;
-}
-
-#right-panel{
-    height:60vh;
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
-}
-
-/* Styling the response div*/
-.event_name date_time purchase{
-    font-family: Roboto;
-    font-size: 1.2em;
-}
-
-.details_div {
-    padding-top: 2%;
     height: 100%;
-}
-
-.event_image{
-    margin: auto auto;
-    border-radius: 10px;
-}
-
-#response_list_placeholder{
-    text-align: center;
-    font-family: Roboto;
-    font-size: 2em;
-    font-weight: 100;
-    color: #666666;
-    padding-top: 25%;
-}
-
-.event_list{
-    height: 60%;
-    /*border: 1px solid black;*/
-    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
-}
-
-.scrollbar {
-    background-color: #F5F5F5;
-    float: left;
-    height: 300px;
-    margin-bottom: 25px;
-    margin-left: 22px;
-    margin-top: 40px;
-    width: 65px;
-    overflow-y: scroll;
-}
-
-.force-overflow {
-    min-height: 450px;
-}
-
-
-
-/* Input and button style */
-#search_form input[type=text] {
-    font-size: 16px;
-    width: 32%;
-    -webkit-appearance: none;
-    background: #fff;
-    border: 1px solid #d9d9d9;
-    padding: 0 8px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    border-radius: 10px;
-}
-
-#search_button {
-    border: 0px;
-    width: 29%;
-    color: #fff;
-    text-shadow: 0 1px rgba(0,0,0,0.5);
-    background-color: darkcyan;
-    font-weight: 400;
-    font-family: roboto;
-    font-size: 20px;
-    border-radius: 10px;
+    border-radius: 4px;
 }

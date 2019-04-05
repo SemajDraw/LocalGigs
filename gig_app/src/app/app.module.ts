@@ -4,9 +4,9 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
+import { SearchPage } from '../pages/search/search';
+import { MapPage } from '../pages/map/map';
+import { ProfilePage } from '../pages/profile/profile';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage} from "../pages/login/login";
 import { SignupPage} from "../pages/signup/signup";
@@ -15,14 +15,16 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestProvider } from '../providers/rest/rest';
 import {IonicStorageModule} from "@ionic/storage";
+import {InterestedPage} from "../pages/interested/interested";
 
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
+    SearchPage,
+    MapPage,
+    ProfilePage,
+    InterestedPage,
     TabsPage,
     LoginPage,
     SignupPage
@@ -36,9 +38,10 @@ import {IonicStorageModule} from "@ionic/storage";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
+    SearchPage,
+    MapPage,
+    ProfilePage,
+    InterestedPage,
     TabsPage,
     LoginPage,
     SignupPage

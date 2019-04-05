@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load leaflet_tags %}
+{% load socialaccount %}
+
+
+{% block head %}
+
+    {# Profile style sheet#}
+    <link rel="stylesheet" href="{% static "app/css/events.css" %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static "app/css/home.css" %}" type="text/css"/>
+
+    {% csrf_token %}
+    <script language="JavaScript" type="text/javascript">
+
+        let csrf_token = jQuery("[name=csrfmiddlewaretoken]").val();
+        let recommended_event_list;
+
+        {# Retreive and append CSRF token to ajax requests #}
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        function csrfTokenSetup() {
+             $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                    }
+                }
+            });
+        }
+
+        {# Make call to rest api which makes call to ticketmaster api #}
+        $(function() {
+            $("#search_form").submit(function() {
+                {#$("#event_list").empty();#}
+                let search = document.getElementById("search_input").value;
+                $.get("/api/search_events/?search=" + search)
+                    .done(function(data) {
+                        document.getElementById('event_list').innerHTML = data;
+                    });
+                return false;
+            });
+
+            $('#recommended_button').on('click', function () {
+                toggleEventDiv();
+            });
+
+        });
+
+        function toggleEventDiv() {
+            $('#event_list').toggle();
+            $('#recommended_event_list').toggle();
+            $('#recommended_button').toggleClass("teal");
+        }
+
+        function saveEvent(event) {
+            csrfTokenSetup();
+            $.ajax({
+                    url: '{% url 'api:save_event' %}',
+                    type: 'POST',
+                    data: {
+                        save_event: JSON.stringify(event)
+                    },
+                    success: function () {
+                        console.log("event sent")
+                    }
+                });
+        }
+
+        function getRecommendedGigs() {
+            $.get("{% url 'api:render_recommended_events' %}")
+                    .done(function(data) {
+                        recommended_event_list = data;
+                        let div = document.createElement("div");
+                        div.id = "recommended_event_list";
+                        div.style.display = "none";
+                        div.innerHTML = data;
+                        $("#main_events_div").append(div);
+                    });
+        }
+
+        function onWindowLoad() {
+            $('#auth-modal').modal('show');
+            getRecommendedGigs();
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+    {% if not user.social_auth.exists %}
+        <div class="modal fade center-block" id="auth-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="loginmodal-container">
+                    <h1 style="font-family: 'Bungee Shade'; font-size: 40px;">Hi there!</h1><br>
+                    <p>Please connect your Spotify account so we can provide you with recommendations for events!</p><br>
+                    <a href="{% url 'social:begin' 'spotify' %}" id="spotify_auth_button" type="button" class="primaryAction" >Connect</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div id="main_div" class="container-fluid">
+
+        <div id="welcome_div" class="container">
+            <div id="welcome_container" class="container">
+                <div id="welcome_text" class="text-center">
+                    Welcome to LocalGigs!
+                </div>
+            </div>
+        </div>
+
+        <div id="main_div_container" class="container">
+            <div id="main_search_div">
+                <div id="search_container">
+                    <h1 id="search_header">Find Event</h1>
+                    <div id="search_bar_container">
+                        <div id="search_bar">
+                            <form id="search_form">
+                                <div id="form_div">
+                                    {% csrf_token %}
+                                    <input id="search_input" type="text" placeholder="Country, City, Venue...">
+                                    <button id="search_button" type="submit" >Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="selctors_container">
+                        <div id="recommended_container">
+                            <button id="recommended_button" class="recommend_button">
+                                Recommended
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="main_events_div" class="container">
+                <div id="event_list">
+                    {% include 'app/events.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script language="JavaScript" type="text/javascript">
+     window.onload = onWindowLoad();
+    </script>
+{% endif %}
+
+{% endblock %}
