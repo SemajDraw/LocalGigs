@@ -11,17 +11,9 @@ from rest_framework.authtoken.models import Token
 
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from rest_auth.registration.views import SocialLoginView
-from social_django.utils import load_strategy
-from collections import Counter
-from . import serializers, ticketmaster
 
-import spotipy
-import requests
+from . import serializers, ticketmaster, spotify
 import json
-
-
-# Spotify base URL
-sp_base_url = 'https://api.spotify.com/'
 
 
 # Django-rest-auth classes
@@ -40,24 +32,13 @@ def get_users_spotify_details(request, **kwargs):
     :return: Result in Json
     """
     if request.user.social_auth.exists():
-        serializer = serializers.SpotifySerializer
         user = request.user
         if user.is_authenticated:
-            social = user.social_auth.get(provider='spotify')
-            social.refresh_token(load_strategy())
-            auth_header = {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer {}'.format(social.extra_data['access_token'])
-            }
             try:
-                res = requests.get(sp_base_url + 'v1/me', headers=auth_header)
-                response = json.loads(res.content)
-                serializer.update(serializer, user.spotify, {'user_data': response})
-                return serializer
-
+                res = spotify.get_user_details(user)
+                return res
             except Exception as e:
-                return Response({"detail": e}, status=status.HTTP_400_BAD_REQUEST)
+                print(e)
         else:
             print('Not a valid user')
             return Response(status=status.HTTP_401_UNAUTHORIZED)
@@ -76,59 +57,14 @@ def get_spotify_playlist_artist_count(request, **kwargs):
     :return: Result in Json
     """
     if request.user.social_auth.exists():
-        serializer = serializers.SpotifySerializer
         user = request.user
         if user.is_authenticated:
-            social = user.social_auth.get(provider='spotify')
-            social.refresh_token(load_strategy())
-            token = social.extra_data['access_token']
-            username = social.uid
-
             try:
-                if token:
-                    sp = spotipy.Spotify(auth=token)
-                    playlists = sp.user_playlists(username)
-                    artist_list = []
-                    for playlist in playlists['items']:
-                        results = sp.user_playlist(username, playlist['id'], fields='tracks, next')
-                        tracks = results['tracks']
-                        tracks_items = tracks['items']
-
-                        if tracks['next'] is None:
-                            for track in tracks_items:
-                                artist_list.append(track['track']['artists'][0]['name'])
-
-                        else:
-                            while tracks['next']:
-                                tracks = sp.next(tracks)
-                                tracks_items.extend(tracks['items'])
-
-                            for track in tracks_items:
-                                artist_list.append(track['track']['artists'][0]['name'])
-
-                    # Get unique artists and add new artists to the profile
-
-                    # Create a unique dictionary of all artists
-                    artist_count = dict(Counter(artist_list))
-
-                    artist_count, favourite_artists = limit_artist_count_build_favourites(
-                        artist_count, user.spotify.recommended_artists)
-
-                    artist_count = remove_malformed_entries(artist_count)
-
-                    serializer.update(serializer, user.spotify, {'artist_count': artist_count,
-                                                                 "recommended_artists": favourite_artists})
-
-                    update_recommended_events(request)
-
-                else:
-                    print('No token found for user: {}'.format(user))
-                    get_users_spotify_details(request)
-
-                return Response(artist_count, status=status.HTTP_200_OK)
-
+                res = spotify.update_user_spotify_details(request, user)
+                update_recommended_events(request)
+                return res
             except Exception as e:
-                return Response({"detail": e}, status=status.HTTP_400_BAD_REQUEST)
+                print(e)
         else:
             print('Not a valid user')
             return Response(status=status.HTTP_401_UNAUTHORIZED)
@@ -143,32 +79,6 @@ def update_recommended_events(request):
         ticketmaster.update_recommended_events(user_id, user_ip)
     except Exception as e:
         print('Event update failed...')
-
-
-def limit_artist_count_build_favourites(artist_count, favourite_artists):
-    # Limit count to 10
-    for k, v in artist_count.items():
-        if v > 10:
-            artist_count[k] = 10
-        if v >= 4 and k not in favourite_artists:
-            favourite_artists.append(k)
-    return artist_count, favourite_artists
-
-
-def remove_malformed_entries(artist_count):
-    try:
-        artist_count.pop('"')
-    except KeyError:
-        print('No quotation entries in this profile\n')
-    try:
-        artist_count.pop('')
-    except KeyError:
-        print('No blank entries in this profile\n')
-    try:
-        artist_count.pop(' ')
-    except KeyError:
-        print('No space entries, in this profile\n')
-    return artist_count
 
 
 # Allows an authenticated user to make a call to the Ticketmaster API with search parameter
@@ -258,8 +168,8 @@ def delete_saved_event(request):
             if user.is_authenticated:
                 saved_events = user.profile.saved_events
                 delete_event = json.loads(request.POST['save_event'])
-                saved_events[:] = [event for event in saved_events if not (event['name'] == delete_event['name']
-                                                                           and event['date'] == delete_event['date'])]
+                saved_events[:] = [event for event in saved_events if not
+                (event['name'] == delete_event['name'] and event['date'] == delete_event['date'])]
 
                 serializer.update(serializer, user.profile, {'saved_events': saved_events})
                 return Response(status=status.HTTP_200_OK)

@@ -24,24 +24,27 @@ def generate_recommendations(query_dict):
 
 def train_fit_model(dataset):
     """Builds and fits the model from the surprise dataset"""
-    print("Training model...")
     trainset = dataset.build_full_trainset()
     SVD_algo = SVD(n_epochs=5)
     SVD_algo.fit(trainset)
-    print("Model trained...")
     return SVD_algo
 
 
-def build_artist_list(fav_artists, recommended_df_list):
-    recommeded_df = pd.concat(recommended_df_list)
-    recommeded_df.sort_values('vector cosine distance', ascending=True, inplace=True)
-    recommeded_df.drop_duplicates('artist', keep='first', inplace=True)
-    for artist in fav_artists:
-        recommeded_df = recommeded_df[recommeded_df.artist != artist]
+def get_top_similarities(artist, model):
+    """Builds a similarity table of one artists to all other artists
+        using the cosine distance of each artists vector"""
+    artist_vector = get_vector_by_artist(artist, model)
+    similarity_table = []
 
-    top_100_recs = recommeded_df.head(100)
-    fav_artists.extend(list(top_100_recs['artist'].unique()))
-    return fav_artists
+    # Iterate over every possible artist and calculate similarity
+    for other_artist in model.trainset._raw2inner_id_items.keys():
+        other_artist_vector = get_vector_by_artist(other_artist, model)
+
+        # Get the second artists vector, and calculate distance
+        similarity_score = cosine_distance(other_artist_vector, artist_vector)
+        similarity_table.append((similarity_score, other_artist))
+
+    return build_top_n_dataframe(sorted(similarity_table))
 
 
 def get_vector_by_artist(artist, trained_model):
@@ -55,10 +58,10 @@ def cosine_distance(vector_a, vector_b):
     return cosine(vector_a, vector_b)
 
 
-def display(similarity_table):
+def build_top_n_dataframe(similarity_table):
     """Builds a DataFrame and returns the top 10 entries,
         the first entry is always the artist that is being searched
-        for as its distance from itself is 0 so it is removed"""
+        for as its distance from itself is 0 so it is ignored"""
 
     similarity_table = pd.DataFrame(
         similarity_table,
@@ -67,20 +70,15 @@ def display(similarity_table):
     return similarity_table.iloc[1:10]
 
 
-def get_top_similarities(artist, model):
-    """Builds a similarity table of one artists to all other artists
-        using the cosine distance of each artists vector"""
+def build_artist_list(fav_artists, recommended_df_list):
+    recommeded_df = pd.concat(recommended_df_list)
+    recommeded_df.sort_values('vector cosine distance', ascending=True, inplace=True)
+    recommeded_df.drop_duplicates('artist', keep='first', inplace=True)
+    for artist in fav_artists:
+        recommeded_df = recommeded_df[recommeded_df.artist != artist]
 
-    artist_vector = get_vector_by_artist(artist, model)
-    similarity_table = []
+    top_n_recs = recommeded_df.head(200)
+    fav_artists.extend(list(top_n_recs['artist'].unique()))
+    return fav_artists
 
-    # Iterate over every possible artist and calculate similarity
-    for other_artist in model.trainset._raw2inner_id_items.keys():
-        other_artist_vector = get_vector_by_artist(other_artist, model)
-
-        # Get the second artists vector, and calculate distance
-        similarity_score = cosine_distance(other_artist_vector, artist_vector)
-        similarity_table.append((similarity_score, other_artist))
-
-    return display(sorted(similarity_table))
 

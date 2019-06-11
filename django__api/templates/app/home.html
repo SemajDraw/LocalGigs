@@ -61,13 +61,11 @@
             $.ajax({
                     url: '{% url 'api:save_event' %}',
                     type: 'POST',
-                    data: {
-                        save_event: JSON.stringify(event)
-                    },
+                    data: {save_event: JSON.stringify(event)},
                     success: function () {
                         console.log("event sent")
                     }
-                });
+            });
         }
 
         function getRecommendedGigs() {
@@ -85,6 +83,9 @@
         function onWindowLoad() {
             $('#auth-modal').modal('show');
             getRecommendedGigs();
+            {# Run every 30 second so recommended events added without page refresh #}
+            {#setInterval(function(){#}
+            {#    getRecommendedGigs()}, 30000)#}
         }
     </script>
 {% endblock %}

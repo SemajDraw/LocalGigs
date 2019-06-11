@@ -8,7 +8,7 @@ from rest_framework_gis import serializers as geo_serializers
 from app.models import Profile, Spotify
 
 
-# Used to update or return the interested_gigs entry in the DB's Profile table
+# Data serialization for the Profile table
 class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -24,7 +24,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return instance
 
 
-# Used to update or return the interested_gigs entry in the DB's Profile table
+# Data serialization for the Spotify table
 class SpotifySerializer(serializers.ModelSerializer):
 
     class Meta:

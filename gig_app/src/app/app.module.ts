@@ -15,7 +15,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestProvider } from '../providers/rest/rest';
 import {IonicStorageModule} from "@ionic/storage";
-import {InterestedPage} from "../pages/interested/interested";
 
 
 @NgModule({
@@ -24,7 +23,6 @@ import {InterestedPage} from "../pages/interested/interested";
     SearchPage,
     MapPage,
     ProfilePage,
-    InterestedPage,
     TabsPage,
     LoginPage,
     SignupPage
@@ -41,7 +39,6 @@ import {InterestedPage} from "../pages/interested/interested";
     SearchPage,
     MapPage,
     ProfilePage,
-    InterestedPage,
     TabsPage,
     LoginPage,
     SignupPage

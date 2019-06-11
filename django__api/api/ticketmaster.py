@@ -41,10 +41,16 @@ def get_ticketmaster_events(user_lat, user_long, classification_name):
             pages = search_events_keyword(classification_name, user_lat, user_long)
 
         single_page = []
-        for page in pages:
+        for index, page in zip(range(5), pages):
             for event in page:
                 single_page.append(event)
             time.sleep(0.2)
+
+        # for page in pages:
+        #     # single_page.append(page)
+        #     for event in page:
+        #         single_page.append(event)
+        #     time.sleep(1)
 
         event_list = event_list_builder(single_page)
 
@@ -57,7 +63,7 @@ def get_ticketmaster_events(user_lat, user_long, classification_name):
 
 def load_events_classification(classification_name, start_date_time, end_date_time, user_lat, user_long):
 
-    tm_client = ticketpy.ApiClient(tm_token)
+    tm_client = ticketpy.ApiClient(tm_rec_token)
     try:
         pages = tm_client.events.find(
             classification_name=classification_name,
@@ -74,7 +80,7 @@ def load_events_classification(classification_name, start_date_time, end_date_ti
 
 def search_events_keyword(classification_name, user_lat, user_long):
 
-    tm_client = ticketpy.ApiClient(tm_rec_token)
+    tm_client = ticketpy.ApiClient(tm_token)
     try:
         pages = tm_client.events.find(
             keyword=classification_name,
@@ -199,7 +205,7 @@ def build_spotify_url(name):
     return spotify_url
 
 
-@background(schedule=5)
+@background(schedule=1)
 def update_recommended_events(user_id, user_ip):
     user = User.objects.get(pk=user_id)
     try:
@@ -248,8 +254,7 @@ def get_artist_recommendations(user):
         user_email = user.email
         recommended_artists = user.spotify.recommended_artists
 
-# "54.229.120.103"
-        res = requests.post('http://54.229.120.103/api/get_recommendations/',
+        res = requests.post('http://34.244.186.50/api/get_recommendations/',
                             data={user_email: json.dumps(user_artist_count)})
         recommendations = json.loads(res.content)['recommended_artists']
 

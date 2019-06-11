@@ -22,10 +22,10 @@ class PreProcessing:
 
     @staticmethod
     def build_favourite_artists(artist_count):
-        """Return list of artists with track count > 5"""
+        """Return list of artists with track count > 3"""
         favourite_artists = []
         for k, v in artist_count.items():
-            if v >= 5:
+            if v >= 3:
                 favourite_artists.append(k)
 
         return favourite_artists

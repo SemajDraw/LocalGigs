@@ -13,9 +13,9 @@ pd.set_option('display.width', 5000)
 
 # Read the aggregated dataset and label columns
 column_names = ['user', 'artist', 'track_count']
-df = pd.read_csv('../Dataset/AggregatedDataset.csv', sep=',', names=column_names, encoding="utf8", index_col='user')
-df.drop('id', axis=1)
-
+df = pd.read_csv('../Dataset/AggregatedDataset.csv', sep=',', names=column_names, encoding="utf8")
+# df.drop('id', axis=1)
+print(df.head())
 # Remove all backslash occurrences in artists name
 df['artist'].replace(regex=True, inplace=True, to_replace=r'\\', value=r'')
 
@@ -40,10 +40,10 @@ users = df['user'].value_counts()
 artists = df['artist'].value_counts()
 most_pop = artists.index[0]
 
-quantiles = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.96, 0.97, 0.98, 0.99, 1]
+quantiles = [0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.96, 0.97, 0.98, 0.99, 1]
 print('Users\n', users.quantile(quantiles))
 print('Artists\n', artists.quantile(quantiles))
-print('Most popular artist\n', most_pop)
+print('Most popular artist: ', most_pop)
 
 users = users[users >= 5]
 artists = artists[artists >= 10]
@@ -62,7 +62,7 @@ reduced_df.set_index('user', inplace=True)
 # # 100k dataset
 # hundredk_df = df.head(100378)
 
-reduced_df.to_csv('../Dataset/CleanedDataset.csv', sep=',', header=False)
+# reduced_df.to_csv('../Dataset/CleanedDataset.csv', sep=',', header=False)
 
 # train.to_csv('../Dataset/TrainDataset.csv', sep=',', header=False)
 

@@ -3,7 +3,8 @@
         <div id="event{{ forloop.counter }}" class="event_div">
             <div class="image_div">
                 <div class="image_container">
-                    <img class="image" src="{{ event.image }}" onerror="this.onerror=null;this.src='/static/app/images/default_artist.png';"/>
+                    <img class="image" src="{{ event.image }}"
+                         onerror="this.onerror=null;this.src='/static/app/images/default_artist.png';"/>
                 </div>
             </div>
             <div class="date_div">

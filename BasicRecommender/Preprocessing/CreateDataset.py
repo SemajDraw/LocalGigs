@@ -6,10 +6,7 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 5000)
 
 
-# Read dataset and label columns
 column_names = ['user', 'artist', 'track_count', 'playlist']
-
-
 def base_dateset():
     df = pd.read_csv('data/playlist_ds.csv', sep=',', names=column_names)
 
@@ -20,7 +17,7 @@ def base_dateset():
     target_df = target_df.drop('playlist', axis=1)
 
     # Export dataframe to CSV
-    target_df.to_csv('data/my.csv', sep=',')
+    target_df.to_csv('Dataset/AggregatedDataset.csv', sep=',')
     print(target_df)
 
 

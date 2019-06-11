@@ -267,9 +267,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-TM_APP_KEY = "BabzejjEdlmaAhyC7DoWWAYyb8u66r5u"
+TM_APP_KEY = "YogbcbgUOqYjSxOcy5YMOzwS6zvv8LAM"
 
-TM_REC_KEY = "RWzHxZlDSFckjuO9jKAXhJSGdqxG5HKv"
+TM_REC_KEY = "W5CYYvcnTtYhxj5xicjAPMq0IF4A3MFu"
 
 GEOIP_PATH = os.path.join(BASE_DIR, 'GeoLite2/GeoLite2-City_20190312')
 

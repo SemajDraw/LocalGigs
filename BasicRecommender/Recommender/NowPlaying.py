@@ -12,7 +12,7 @@ import csv
 
 class NowPlaying(object):
 
-    dataset_path = "../Dataset/CleanedDatasetOG.csv"
+    dataset_path = "../Dataset/100kDataset.csv"
 
     def loadNowPlaying(self):
 
@@ -25,20 +25,20 @@ class NowPlaying(object):
 
         return nowPlayingDataset
 
-    def getPopularityRanks(self):
-        ratings = defaultdict(int)
-        rankings = defaultdict(str)
-        with open(self.dataset_path, newline='\n', encoding='utf8') as dataset:
-            ratingReader = csv.reader(dataset)
-            next(ratingReader)
-            for row in ratingReader:
-                artist = str(row[1])
-                ratings[artist] += 1
-        rank = 1
-        for artist, occuranceCount in sorted(ratings.items(), key=lambda x: x[1], reverse=True):
-            rankings[artist] = rank
-            rank += 1
-        return rankings
+    # def getPopularityRanks(self):
+    #     ratings = defaultdict(int)
+    #     rankings = defaultdict(str)
+    #     with open(self.dataset_path, newline='\n', encoding='utf8') as dataset:
+    #         ratingReader = csv.reader(dataset)
+    #         next(ratingReader)
+    #         for row in ratingReader:
+    #             artist = str(row[1])
+    #             ratings[artist] += 1
+    #     rank = 1
+    #     for artist, occuranceCount in sorted(ratings.items(), key=lambda x: x[1], reverse=True):
+    #         rankings[artist] = rank
+    #         rank += 1
+    #     return rankings
 
 
 

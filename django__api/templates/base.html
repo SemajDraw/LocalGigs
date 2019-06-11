@@ -35,12 +35,15 @@
     {#    Base style sheet#}
     <link rel="stylesheet" href="{% static "base.css" %}" type="text/css"/>
 
-    <script src="{% static "app/js/my_script.js" %}"></script>
+    <script src="{% static "app/js/base.js" %}"></script>
+
     {% block head %}
+        {# All template heads are rendered here #}
     {% endblock %}
 
 </head>
 <body>
+
  <div id="content">
     <nav class="navbar navbar-inverse" style="margin-bottom: 0px; font-family: 'Bungee Shade'; font-size: 1.5em; border-radius: 0px">
       <div class="container-fluid">
@@ -63,8 +66,9 @@
                     <span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
             {% else %}
                 <li><a href="account/signup"><span class="glyphicon glyphicon-user"></span>  Sign Up</a></li>
-                <li><a id="login" href="" style="padding-right: 5vh; padding-left:2vh;" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in">
-                </span>  Login</a></li>
+                <li><a id="login" href="" style="padding-right: 5vh; padding-left:2vh;" data-toggle="modal" data-target="#login-modal">
+                    <span class="glyphicon glyphicon-log-in"></span>  Login</a>
+                </li>
             {% endif %}
         </ul>
       </div>
@@ -114,7 +118,7 @@
 
 
  {% block content %}
-
+    {# All template bodies are rendered here #}
  {% endblock %}
 
  <!-- Footer -->

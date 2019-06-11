@@ -51,13 +51,14 @@ export class RestProvider {
   searchEvents(search) {
     const headers = this.createHeaders();
     return new Promise(resolve => {
-      this.http.get(this.baseUrl + 'get_ticketmaster_events/?search=' + search , {headers: headers} )
+      this.http.get(this.baseUrl + 'get_ticketmaster_events/?search='
+        + search , {headers: headers} )
         .subscribe(data => { resolve(data); }, err => { console.log(err);
         });
     });
   }
 
-  // Gets the users interested list from db interested_gigs column
+  // Gets the users saved events from the database
   getSavedEvents () {
     const headers = this.createHeaders();
     return new Promise(resolve => {
@@ -66,7 +67,7 @@ export class RestProvider {
     });
   }
 
-  // Gets the users interested list from db interested_gigs column
+  // Gets the users recommended events from the database
   getRecommendedEvents () {
     const headers = this.createHeaders();
     return new Promise(resolve => {
@@ -75,7 +76,7 @@ export class RestProvider {
     });
   }
 
-  // Gets the users interested list from db interested_gigs column
+  // Saves an event to the database
   saveEvent () {
     const headers = this.createHeaders();
     return new Promise(resolve => {
