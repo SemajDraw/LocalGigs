@@ -1,5 +1,3 @@
-#***** NOTE Git File Size Limitation Prevents Vital Files Being Pushed *****
-
 # LocalGigs
 
 James Ward - C12404762 - Final Year Project
