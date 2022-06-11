@@ -1,8 +1,5 @@
 # LocalGigs
 
-James Ward - C12404762 - Final Year Project
-
-
 # Set Up
 To run the project the django__api application needs to be run with the following command, after navigating to the folder.
 	### python manage.py runserver 127.0.0.0:8000
