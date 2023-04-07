@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from django.contrib.gis.geoip2 import GeoIP2
 from iteration_utilities import Iterable
-from background_task import background
 from django.contrib.auth.models import User
 import calendar
 import ticketpy
@@ -45,12 +44,6 @@ def get_ticketmaster_events(user_lat, user_long, classification_name):
             for event in page:
                 single_page.append(event)
             time.sleep(0.2)
-
-        # for page in pages:
-        #     # single_page.append(page)
-        #     for event in page:
-        #         single_page.append(event)
-        #     time.sleep(1)
 
         event_list = event_list_builder(single_page)
 
@@ -204,20 +197,20 @@ def build_spotify_url(name):
 
     return spotify_url
 
+# Library no longer functional django-background-tasks
+# @background(schedule=1)
+# def update_recommended_events(user_id, user_ip):
+#     user = User.objects.get(pk=user_id)
+#     try:
+#         get_recommended_events(user, user_ip)
+#     except Exception as e:
+#         print(e)
 
-@background(schedule=1)
-def update_recommended_events(user_id, user_ip):
-    user = User.objects.get(pk=user_id)
-    try:
-        get_recommended_events(user, user_ip)
-    except Exception as e:
-        print(e)
-
-    try:
-        get_artist_recommendations(user)
-        get_recommended_events(user, user_ip)
-    except Exception as e:
-        print(e)
+#     try:
+#         get_artist_recommendations(user)
+#         get_recommended_events(user, user_ip)
+#     except Exception as e:
+#         print(e)
 
 
 def get_recommended_events(user, user_ip):
